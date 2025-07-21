@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alisson Sorto | Marca Personal</title>
+  <style>
+    :root {
+      --main-bg: #fdf9f3;
+      --text-color: #2b2b2b;
+      --accent-dark: #2d0a12;
+      --accent: #570c1a;
+      --light: #fffaf0;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: var(--main-bg);
+      color: var(--text-color);
+      scroll-behavior: smooth;
+    }
+
+    nav.navbar {
+      background-color: #000;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    nav.navbar .logo img {
+      height: 80px;
+      width: auto;
+      display: block;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: white;
+      font-weight: 600;
+      transition: 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    header.hero {
+      background-color: var(--accent);
+      color: white;
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 2.8rem;
+      margin-bottom: 1rem;
+    }
+
+    section {
+      padding: 3rem 2rem;
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      border-bottom: 3px solid var(--accent);
+      display: inline-block;
+    }
+
+    .about, .formacion-grid, .portafolio-grid {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .about img {
+      width: 600px;
+      border-radius: 10px;
+    }
+
+    .formacion-grid .institucion,
+    .portafolio-grid .card {
+      background-color: var(--light);
+      padding: 1rem;
+      border-radius: 10px;
+      flex: 1;
+      min-width: 300px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .portafolio-grid .card img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+    .hero-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      padding: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-image img {
+      width: 598px;
+      height: auto;
+      border-radius: 12px;
+    }
+
+    .hero-text {
+      max-width: 620px;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .institucion img {
+      display: block;
+      margin: 0 auto;
+      max-width: 440px;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    .carousel-container {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .carousel {
+      display: flex;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      gap: 1rem;
+      padding-bottom: 1rem;
+    }
+
+    .carousel-item {
+      min-width: 300px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .carousel-item img {
+      width: 100%;
+      max-width: 250px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .prev, .next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: var(--accent);
+      color: white;
+      border: none;
+      font-size: 2rem;
+      padding: 0.5rem;
+      cursor: pointer;
+      border-radius: 50%;
+      z-index: 10;
+    }
+
+    .prev { left: 0.5rem; }
+    .next { right: 0.5rem; }
+
+    footer {
+      text-align: center;
+      background-color: var(--accent-dark);
+      color: white;
+      padding: 1rem;
+      margin-top: 2rem;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.8);
+    }
+
+    .modal-content {
+      display: block;
+      margin: 5% auto;
+      max-width: 80%;
+      border-radius: 10px;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 2rem;
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+    }
+
+    @media screen and (max-width: 768px) {
+      .about, .formacion-grid, .portafolio-grid {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .carousel-item {
+        min-width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="logo"><img src="img/AM.png" alt="Logo Alisson Sorto"></div>
+    <ul class="nav-links">
+      <li><a href="#inicio">Inicio</a></li>
+      <li><a href="#acerca">Acerca de mí</a></li>
+      <li><a href="#formacion">Formación</a></li>
+      <li><a href="#otros">Otros Estudios</a></li>
+      <li><a href="#logros">Logros</a></li>
+      <li><a href="#voluntariado">Voluntariados</a></li>
+      <li><a href="#portafolio">Portafolio</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <header id="inicio" class="hero">
+    <h1>Bienvenidos a mi sitio personal</h1>
+    <h3><i>Alisson Montserrat Sorto Aragón</i></h3>
+    <br>
+    <p>Estudiante de 17 años apasionada por la arquitectura, el diseño y la tecnología.</p>
+  </header>
+
+   <section id="inicio" class="hero">
+    <div class="hero-content">
+      <div class="hero-image">
+        <img src="img/ss.png" alt="Foto de Alisson Sorto" />
+      </div>
+      <div class="hero-text">
+        <h1>¡Hola! Soy Alisson Sorto</h1>
+        <p>
+          <br><br>
+         Desde siempre, he tenido una gran pasión por experimentar, crear y enfrentar nuevos retos que me ayuden a crecer tanto personal como profesionalmente. Me considero una persona decidida, disciplinada y comprometida con mis sueños, siempre lista para aprender, mejorar y aportar valor en todo lo que hago.
+         <br /><br />
+         Aunque aún estoy en camino de formarme profesionalmente, ya me considero una arquitecta de carácter. Disfruto imaginar, diseñar, pintar, decorar y dar vida a ideas que nacen desde la creatividad y el deseo de transformar espacios en lugares llenos de significado. Para mí, la arquitectura no solo se trata de construir estructuras, sino también de construir emociones, ambientes y sensaciones.
+        </p>
+      </div>
+    </div>
+  </section>
+</header>
+
+  <section id="formacion">
+    <h2>Formación Académica</h2>
+    <div class="formacion-grid">
+      <div class="institucion">
+        <img src="img/logoSup.png" alt="Logo Súperate"  />
+        <h3>Súperate Grupo Q</h3>
+        <p>Centro ¡Supérate! Grupo Q, formación en inglés, informática (HTML, CSS, JavaScript, Microsoft Office) y valores como liderazgo y responsabilidad, orientada al desarrollo académico y personal.</p>
+      </div>
+      <div class="institucion">
+        <img src="img/ceoh.png" alt="Logo Ofelia Herrera" />
+        <h3>Complejo Educativo Ofelia Herrera</h3>
+        <p>Complejo Educativo Ofelia Herrera, institución donde cursé y destaqué en el Bachillerato General, fortaleciendo mis habilidades académicas y personales.</p>
+      </div>
+    </div>
+  </section>
+
+    <section id="logros">
+    <h2>Otros Estudios</h2>
+    <div class="carousel-container">
+      <button class="prev">&#10094;</button>
+      <div class="carousel" id="logros-carousel">
+        <div class="carousel-item">
+          <img src="img/win1.jpeg" alt="Logro 1" onclick="showModal(this)" />
+          <p>Curso con GeoEspaciales con USAID y Frank Rubio</p>
+        </div>
+        <div class="carousel-item">
+          <img src="img/win2.jpeg" alt="Logro 2" onclick="showModal(this)" />
+          <p>Diploma de Estudio Bíblico</p>
+        </div>
+        <div class="carousel-item">
+          <img src="img/win3.jpeg" alt="Logro 2" onclick="showModal(this)" />
+          <p>Certificado de Bautismo</p>
+        </div>
+        <div class="carousel-item">
+          <img src="img/win4.jpeg" alt="Logro 2" onclick="showModal(this)" />
+          <p>Diploma de Intermedios</p>
+        </div>
+        <div class="carousel-item">
+          <img src="img/win5.jpeg" alt="Logro 2" onclick="showModal(this)" />
+          <p>Diploma de Primarios 8-9</p>
+        </div>
+        <div class="carousel-item">
+          <img src="img/win6.jpeg" alt="Logro 2" onclick="showModal(this)" />
+          <p>Diploma de Participación de Team Building RH Grupo Q</p>
+        </div>
+        <div class="carousel-item">
+          <img src="img/win7.jpeg" alt="Logro 2" onclick="showModal(this)" />
+          <p>Medalla Expo-Tech</p>
+        </div>
+      </div>
+      <button class="next">&#10095;</button>
+    </div>
+  </section>
+  
+
+  <section id="logros">
+    <h2>Logros Académicos</h2>
+    <div class="carousel-container">
+      <button class="prev">&#10094;</button>
+      <div class="carousel" id="otros-carousel">
+        <div class="carousel-item">
+          <img src="img/achie1.jpeg" alt="Curso 1" onclick="showModal(this)" />
+          <p>Tercer lugar en el concurso "Spelling Bee"</p>
+        </div>
+        <div class="carousel-item">
+          <img src="img/achie2.jpeg" alt="Curso 2" onclick="showModal(this)" />
+          <p>Diploma de Honor, nivel Primarios <br> en la iglesia Tabernáculo de Oración</p>
+        </div>
+        <div class="carousel-item">
+          <img src="img/achie3.jpeg" alt="Curso 3" onclick="showModal(this)" />
+          <p>Primer lugar en Segundo Grado en el <br> Complejo Educativo Ofelia Herrera</p>
+        </div>
+        <div class="carousel-item">
+          <img src="img/achie4.jpeg" alt="Curso 4" onclick="showModal(this)" />
+          <p>Diploma de Honor, nivel Primarios <br> en la iglesia Tabernáculo de Oración</p>
+        </div>
+        <div class="carousel-item">
+          <img src="img/achie5.jpeg" alt="Curso 5" onclick="showModal(this)" />
+          <p>Primer lugar en Primer Grado en el <br> Complejo Educativo Ofelia Herrera</p>
+        </div>
+        <div class="carousel-item">
+          <img src="img/achie6.jpeg" alt="Curso 6" onclick="showModal(this)" />
+          <p>Primer lugar en Preparatoria en el <br> Complejo Educativo Ofelia Herrera</p>
+        </div>
+        <div class="carousel-item">
+          <img src="img/achie7.jpeg" alt="Curso 7" onclick="showModal(this)" />
+          <p>Tercer lugar en Quinto Grado <br> en el Complejo Educativo Ofelia Herrera</p>
+        </div>
+        <div class="carousel-item">
+          <img src="img/achie8.jpeg" alt="Curso 7" onclick="showModal(this)" />
+          <p>Segundo lugar por los puntajes más altos en <br> Nivel de Cinco de Parvularia en el Complejo Educativo <br>Ofelia Herrera</p>
+        </div>
+        <div class="carousel-item">
+          <img src="img/achie9.jpeg" alt="Curso 7" onclick="showModal(this)" />
+          <p>Diploma de Honor, nivel Primarios <br> en la iglesia Tabernáculo de Oración</p>
+        </div>
+        <div class="carousel-item">
+          <img src="img/achie10.jpeg" alt="Curso 7" onclick="showModal(this)" />
+          <p>Diploma de Honor, nivel Primarios <br> en la iglesia Tabernáculo de Oración</p>
+        </div>
+        <div class="carousel-item">
+          <img src="img/achie11.jpeg" alt="Curso 7" onclick="showModal(this)" />
+          <p>Excelencia Académica en el <br> Complejo Educativo Ofelia Herrera</p>
+        </div>
+        <div class="carousel-item">
+          <img src="img/achie12.jpeg" alt="Curso 7" onclick="showModal(this)" />
+          <p>Estrella Q en el Área de Inglés en el <br> Centro ¡Supérate! Grupo Q</p>
+        </div>
+        <div class="carousel-item">
+          <img src="img/achie13.jpeg" alt="Curso 7" onclick="showModal(this)" />
+          <p>Reconocimiento en las Áreas de <br>Desarrollo Personal y Educativo</p>
+        </div>
+        <div class="carousel-item">
+          <img src="img/achie15.jpeg" alt="Curso 7" onclick="showModal(this)" />
+          <p>Medalla de Excelencia en la <br>iglesia Tabernáculo de Oración</p> 
+        </div>
+      </div>
+      <button class="next">&#10095;</button>
+    </div>
+  </section>
+
+  <section id="voluntariado">
+    <h2>Voluntariados</h2>
+    <div class="carousel-container">
+      <button class="prev">&#10094;</button>
+      <div class="carousel voluntariado-carousel" id="voluntariado-carousel">
+        <div class="carousel-item">
+          <img src="img/v1.jpeg" alt="Voluntariado 1" onclick="showModal(this)" />
+          <p>Voluntariado OIM</p>
+        </div>
+        <div class="carousel-item">
+          <img src="img/v2.jpeg" alt="Voluntariado 2" onclick="showModal(this)" />
+          <p>Voluntariado TDO - Evangelismo</p>
+        </div>
+        <div class="carousel-item">
+          <img src="img/v5.jpeg" alt="Voluntariado 2" onclick="showModal(this)" />
+          <p>Voluntariado en ISSS</p>
+        </div>
+        <div class="carousel-item">
+          <img src="img/v7.jpeg" alt="Voluntariado 2" onclick="showModal(this)" />
+          <p>Campaña de Limpieza CEOH</p>
+        </div>
+        <div class="carousel-item"> 
+          <img src="img/v8.jpeg" alt="Voluntariado 2" onclick="showModal(this)" />
+          <p>Apoyo en Asistencia con Director</p>
+        </div>
+      </div>
+      <button class="next">&#10095;</button>
+    </div>
+  </section>
+
+  <section id="portafolio">
+    <h2>Portafolio</h2>
+    <div class="portafolio-grid">
+      <div class="carousel-item">
+        <img src="img/A.jpeg" alt="Proyecto 1" onclick="showModal(this)" />
+        <p>Proyecto Alumnity para Hackathon 2023</p>
+      </div>
+      <div class="carousel-item">
+        <img src="img/arg.png" alt="Proyecto 2" onclick="showModal(this)" />
+        <p>Proyecto Resilient AGR para Expo <br> en el área de Agricultura</p>
+      </div>
+      <div class="carousel-item">
+        <img src="img/tt.jpeg" alt="Proyecto 2" onclick="showModal(this)" />
+        <p>Aplicación TOTUS para Expo-Tech</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacto">
+    <h2>Contacto</h2>
+    <p><strong>Nombre:</strong> Alisson Montserrat Sorto Aragón</p>
+    <p><strong>Email:</strong> alissorto28@gmail.com</p>
+    <p><strong>Teléfono:</strong> 77265517</p>
+    <p><strong>Ubicación:</strong> San Miguel, El Salvador</p>
+  </section>
+
+  <footer>
+    <p>© 2025 Alisson Sorto | San Miguel, El Salvador</p>
+  </footer>
+
+  <!-- Modal -->
+  <div id="imgModal" class="modal" onclick="closeModal()">
+    <span class="modal-close">&times;</span>
+    <img class="modal-content" id="modalImage" />
+  </div>
+
+  <script>
+    // Función para mover carrusel con flechas
+    document.querySelectorAll(".prev").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const carousel = btn.nextElementSibling;
+        carousel.scrollBy({ left: -300, behavior: "smooth" });
+      });
+    });
+
+    document.querySelectorAll(".next").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const carousel = btn.previousElementSibling;
+        carousel.scrollBy({ left: 300, behavior: "smooth" });
+      });
+    });
+
+    // Mostrar modal con imagen al hacer clic
+    function showModal(img) {
+      const modal = document.getElementById("imgModal");
+      const modalImg = document.getElementById("modalImage");
+      modal.style.display = "block";
+      modalImg.src = img.src;
+    }
+
+    // Cerrar modal al hacer clic fuera o en la X
+    function closeModal() {
+      document.getElementById("imgModal").style.display = "none";
+    }
+
+    // Evitar que clic en imagen modal cierre por error
+    document.getElementById("modalImage").addEventListener("click", function(event) {
+      event.stopPropagation();
+    });
+  </script>
+</body>
+</html>
